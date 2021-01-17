@@ -1,0 +1,62 @@
+<html>
+<head>
+<title>task_repository.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #000000;}
+.s1 { color: #008000; font-weight: bold;}
+.s2 { color: #000080; font-weight: bold;}
+.s3 { color: #808080; font-style: italic;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+task_repository.dart</font>
+</center></td></tr></table>
+<pre>import <span class="s1">'package:cet_todo_app/models/task_item.dart'</span>;
+import <span class="s1">'package:flutter/cupertino.dart'</span>;
+import <span class="s1">'dart:collection'</span>;
+
+<span class="s2">class </span>TaskRepository <span class="s2">extends </span>ChangeNotifier {
+  List&lt;TaskItem&gt; tasks = [];
+
+  TaskRepository() {
+    addTask(TaskItem(title: <span class="s1">&quot;Buy bread&quot;</span>, isDone: <span class="s2">true</span>));
+    addTask(TaskItem(title: <span class="s1">&quot;Study CET 301&quot;</span>, isDone: <span class="s2">true</span>));
+    addTask(TaskItem(title: <span class="s1">&quot;watch  film&quot;</span>, isDone: <span class="s2">true</span>));
+  }
+  int taskCount() {
+    <span class="s2">return </span>tasks.length;
+  }
+
+  int incompleteTaskCount() {
+    <span class="s3">//int count=0;</span>
+    <span class="s3">//for (var t in tasks) {</span>
+    <span class="s3">//  if(!t.isDone) count=count+1;</span>
+    <span class="s3">//}</span>
+    <span class="s3">//return count;</span>
+    <span class="s2">return </span>tasks.where((t) =&gt; !t.isDone).length;
+  }
+
+  <span class="s2">void </span>addTask(TaskItem task) {
+    tasks.add(task);
+
+    notifyListeners();
+  }
+
+  <span class="s2">void </span>toggleTask(TaskItem task) {
+    task.isDone = !task.isDone;
+
+    notifyListeners();
+  }
+
+  <span class="s2">void </span>deleteTask(TaskItem task) {
+    tasks.remove(task);
+    notifyListeners();
+  }
+}
+</pre>
+</body>
+</html>

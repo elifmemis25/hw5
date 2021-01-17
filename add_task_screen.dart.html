@@ -1,0 +1,79 @@
+<html>
+<head>
+<title>add_task_screen.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #000000;}
+.s1 { color: #008000; font-weight: bold;}
+.s2 { color: #000080; font-weight: bold;}
+.s3 { color: #0000ff;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+add_task_screen.dart</font>
+</center></td></tr></table>
+<pre>import <span class="s1">'package:cet_todo_app/models/task_item.dart'</span>;
+import <span class="s1">'package:cet_todo_app/models/task_repository.dart'</span>;
+import <span class="s1">'package:flutter/material.dart'</span>;
+import <span class="s1">'package:provider/provider.dart'</span>;
+
+<span class="s2">class </span>AddTaskScreen <span class="s2">extends </span>StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    String taskTitle;
+    <span class="s2">return </span>SingleChildScrollView(
+      child: Container(
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: <span class="s3">20</span>, vertical: <span class="s3">30</span>),
+          color: Colors.white,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                <span class="s1">'Add Task'</span>,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: <span class="s3">30</span>, color: Colors.lightBlueAccent),
+              ),
+              SizedBox(
+                height: <span class="s3">15</span>,
+              ),
+              TextField(
+                onChanged: (newText) {
+                  taskTitle = newText;
+                  print(newText);
+                },
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.lightBlueAccent, fontSize: <span class="s3">20</span>),
+                autofocus: <span class="s2">true</span>,
+              ),
+              SizedBox(
+                height: <span class="s3">10</span>,
+              ),
+              FlatButton(
+                  onPressed: () {
+                    <span class="s2">if </span>(taskTitle != <span class="s2">null</span>) {
+                      Provider.of&lt;TaskRepository&gt;(context, listen: <span class="s2">false</span>)
+                          .addTask(TaskItem(title: taskTitle, isDone: <span class="s2">false</span>));
+                    }
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(
+                    <span class="s1">'Add'</span>,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  color: Colors.lightBlueAccent)
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+</pre>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<html>
+<head>
+<title>task_item.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #000000;}
+.s1 { color: #008000; font-weight: bold;}
+.s2 { color: #000080; font-weight: bold;}
+.s3 { color: #0000ff;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+task_item.dart</font>
+</center></td></tr></table>
+<pre>import <span class="s1">'package:hive/hive.dart'</span>;
+
+part <span class="s1">'task_item.g.dart'</span>;
+
+@HiveType()
+<span class="s2">class </span>TaskItem {
+  @HiveField(<span class="s3">0</span>)
+  String title;
+  @HiveField(<span class="s3">1</span>)
+  bool isDone;
+  TaskItem({<span class="s2">this</span>.title, <span class="s2">this</span>.isDone});
+}
+</pre>
+</body>
+</html>

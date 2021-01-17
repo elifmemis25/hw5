@@ -1,0 +1,58 @@
+<html>
+<head>
+<title>main.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #000000;}
+.s1 { color: #008000; font-weight: bold;}
+.s2 { color: #000080; font-weight: bold;}
+.s3 { color: #0000ff;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+main.dart</font>
+</center></td></tr></table>
+<pre>import <span class="s1">'package:cet_todo_app/models/task_repository.dart'</span>;
+import <span class="s1">'package:cet_todo_app/screens/main_screen.dart'</span>;
+import <span class="s1">'package:flutter/material.dart'</span>;
+import <span class="s1">'package:provider/provider.dart'</span>;
+import <span class="s1">'package:hive/hive.dart'</span>;
+import <span class="s1">'package:path_provider/path_provider.dart' </span>as path_provider;
+
+<span class="s2">void </span>main() async {
+  <span class="s2">final </span>appDocumentDirectory = await path_provider.getApplicationDocumentsDirectory();
+  Hive.init(appDocumentDirectory.path);
+  Hive.registerAdapter(task_itemAdapter(),<span class="s3">0</span>);
+  runApp(ChangeNotifierProvider&lt;TaskRepository&gt;(
+    create: (context) =&gt; TaskRepository(),
+    child: MaterialApp(
+      home: FutureBuilder(
+        future: Hive.openBox(<span class="s1">'task_item'</span>);
+        builder: (BuildContext context, AsyncSnapshot snapshot)
+  {
+    <span class="s2">if </span>(snapshot.connectionState = ConnectionState.done) {
+      <span class="s2">if </span>(snapshot.hasError)
+        <span class="s2">return </span>Text(snapshot.error.toString());
+      <span class="s2">else</span>
+        <span class="s2">return </span>TaskItem();
+    } <span class="s2">else</span>
+      <span class="s2">return </span>Scaffold();
+  }
+    }
+    }
+      ),
+    ),
+  ));
+}
+@override
+<span class="s2">void </span>dispose() {
+  Hive.close();
+  <span class="s2">super</span>.dispose();
+}
+}
+</pre>
+</body>
+</html>

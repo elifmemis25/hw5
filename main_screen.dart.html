@@ -1,0 +1,99 @@
+<html>
+<head>
+<title>main_screen.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #000000;}
+.s1 { color: #008000; font-weight: bold;}
+.s2 { color: #000080; font-weight: bold;}
+.s3 { color: #0000ff;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+main_screen.dart</font>
+</center></td></tr></table>
+<pre>import <span class="s1">'package:cet_todo_app/models/task_repository.dart'</span>;
+import <span class="s1">'package:cet_todo_app/screens/add_task_screen.dart'</span>;
+import <span class="s1">'package:flutter/material.dart'</span>;
+import <span class="s1">'../widgets/task_list.dart'</span>;
+import <span class="s1">'package:provider/provider.dart'</span>;
+
+<span class="s2">class </span>MainScreen <span class="s2">extends </span>StatefulWidget {
+  @override
+  _MainScreenState createState() =&gt; _MainScreenState();
+}
+
+<span class="s2">class </span>_MainScreenState <span class="s2">extends </span>State&lt;MainScreen&gt; {
+  @override
+  Widget build(BuildContext context) {
+    <span class="s2">return </span>Scaffold(
+      backgroundColor: Colors.lightBlueAccent,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: EdgeInsets.only(top: <span class="s3">60</span>, left: <span class="s3">30</span>, right: <span class="s3">30</span>, bottom: <span class="s3">30</span>),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CircleAvatar(
+                  child: Icon(
+                    Icons.list,
+                    size: <span class="s3">30</span>,
+                    color: Colors.lightBlueAccent,
+                  ),
+                  backgroundColor: Colors.white,
+                ),
+                SizedBox(
+                  height: <span class="s3">10</span>,
+                ),
+                Text(
+                  <span class="s1">'Cet Todo'</span>,
+                  style: TextStyle(
+                      fontSize: <span class="s3">40</span>,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: <span class="s3">3.0</span>,
+                      color: Colors.white),
+                ),
+                Text(
+                  <span class="s1">'</span>${Provider.of&lt;TaskRepository&gt;(context).taskCount()} <span class="s1">Tasks (</span>${Provider.of&lt;TaskRepository&gt;(context).incompleteTaskCount()} <span class="s1">Incomplete)'</span>,
+                  style: TextStyle(
+                    fontSize: <span class="s3">18</span>,
+                    color: Colors.white,
+                  ),
+                )
+              ],
+            ),
+          ),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(<span class="s3">20</span>),
+                  topRight: Radius.circular(<span class="s3">20</span>),
+                ),
+                color: Colors.white,
+              ),
+              child: TaskList(),
+            ),
+          )
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.lightBlueAccent,
+        child: Icon(Icons.add),
+        onPressed: () {
+          print(<span class="s1">'floating action button pressed'</span>);
+          showModalBottomSheet(
+              context: context, builder: (context) =&gt; AddTaskScreen());
+        },
+      ),
+    );
+  }
+}
+</pre>
+</body>
+</html>

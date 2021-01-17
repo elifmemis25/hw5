@@ -1,0 +1,100 @@
+<html>
+<head>
+<title>task_list.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #000000;}
+.s1 { color: #008000; font-weight: bold;}
+.s2 { color: #000080; font-weight: bold;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+task_list.dart</font>
+</center></td></tr></table>
+<pre>import <span class="s1">'package:cet_todo_app/models/task_repository.dart'</span>;
+import <span class="s1">'package:flutter/cupertino.dart'</span>;
+import <span class="s1">'package:flutter/material.dart'</span>;
+import <span class="s1">'task_tile.dart'</span>;
+import <span class="s1">'package:provider/provider.dart'</span>;
+import <span class="s1">'dart:io'</span>;
+
+<span class="s2">class </span>TaskList <span class="s2">extends </span>StatelessWidget {
+  <span class="s2">const </span>TaskList({
+    Key key,
+  }) : <span class="s2">super</span>(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    <span class="s2">return </span>Consumer&lt;TaskRepository&gt;(
+      builder: (context, taskRepository, child) {
+        <span class="s2">return </span>ListView.builder(
+            itemCount: taskRepository.taskCount(),
+            itemBuilder: (context, index) {
+              <span class="s2">var </span>task = taskRepository.tasks[index];
+              <span class="s2">return </span>TaskTile(
+                title: task.title,
+                isDone: task.isDone,
+                onCheckboxClicked: (value) {
+                  taskRepository.toggleTask(task);
+                },
+                onLongPress: () async {
+                  <span class="s2">if </span>(Platform.isIOS)
+                    await showCupertinoDialog(
+                        context: context,
+                        builder: (context) =&gt; CupertinoAlertDialog(
+                              title: Text(<span class="s1">'Confirmation'</span>),
+                              content: Text(
+                                  <span class="s1">'Are you sure to delete </span>${task.title}<span class="s1">?\nThis action is unreversible!'</span>),
+                              actions: [
+                                CupertinoDialogAction(
+                                  child: Text(<span class="s1">'Yes'</span>),
+                                  onPressed: () {
+                                    taskRepository.deleteTask(task);
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                CupertinoDialogAction(
+                                  child: Text(<span class="s1">'No'</span>),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            ));
+                  <span class="s2">else </span>{
+                    await showDialog(
+                        context: context,
+                        builder: (context) =&gt; AlertDialog(
+                              title: Text(<span class="s1">'Confirmation'</span>),
+                              content: Text(
+                                  <span class="s1">'Are you sure to delete </span>${task.title}<span class="s1">?\nThis action is unreversible!'</span>),
+                              actions: [
+                                FlatButton(
+                                  child: Text(<span class="s1">'Yes'</span>),
+                                  onPressed: () {
+                                    taskRepository.deleteTask(task);
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                FlatButton(
+                                  child: Text(<span class="s1">'No'</span>),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            ));
+                  }
+                },
+              );
+            });
+      },
+    );
+  }
+}
+</pre>
+</body>
+</html>

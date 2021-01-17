@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>task_tile.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #000000;}
+.s1 { color: #008000; font-weight: bold;}
+.s2 { color: #000080; font-weight: bold;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+task_tile.dart</font>
+</center></td></tr></table>
+<pre>import <span class="s1">'package:flutter/material.dart'</span>;
+
+<span class="s2">class </span>TaskTile <span class="s2">extends </span>StatelessWidget {
+  <span class="s2">final </span>String title;
+  <span class="s2">final </span>bool isDone;
+  <span class="s2">final </span>Function onCheckboxClicked;
+  <span class="s2">final </span>Function onLongPress;
+  <span class="s2">const </span>TaskTile({
+    <span class="s2">this</span>.title,
+    <span class="s2">this</span>.isDone,
+    <span class="s2">this</span>.onCheckboxClicked,
+    <span class="s2">this</span>.onLongPress,
+    Key key,
+  }) : <span class="s2">super</span>(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    <span class="s2">return </span>ListTile(
+      onLongPress: onLongPress,
+      title: Text(
+        <span class="s2">this</span>.title,
+        style: TextStyle(
+          color: Colors.lightBlueAccent,
+          decoration: isDone ? TextDecoration.lineThrough : <span class="s2">null</span>,
+        ),
+      ),
+      trailing: Checkbox(
+        value: isDone,
+        activeColor: Colors.lightBlueAccent,
+        onChanged: onCheckboxClicked,
+      ),
+    );
+  }
+}
+</pre>
+</body>
+</html>
